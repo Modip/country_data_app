@@ -49,6 +49,7 @@ class Country {
         "flagPng": flagPng,
         "area": area,
         "region": region,
-        "population": population
+        "population": population,
+        "capital": capital
       };
 }

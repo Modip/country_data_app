@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_mme_teranga/constant.dart';
 import 'package:test_mme_teranga/controller/country_controller.dart';
 
 class CountryScreen extends StatelessWidget {
@@ -11,28 +12,27 @@ class CountryScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 233, 233),
+      backgroundColor: kBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.black87,
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "Counry Screen",
+          "Counry App",
           style: TextStyle(color: Colors.green),
-        ),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.grey),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(
+              height: 15,
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               margin: const EdgeInsets.symmetric(horizontal: 4),
               width: width * .9,
-              height: 50,
+              height: 60,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -72,38 +72,60 @@ class CountryScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-              return Container(
+              return SizedBox(
                 height: height,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: countryController.displayCountry.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Card(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                countryController
-                                    .displayCountry[index].nameCommon,
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                              Text(
-                                countryController.displayCountry[index].capital,
-                                style: const TextStyle(fontSize: 13),
-                              )
-                            ],
-                          ),
-                          subtitle: Text(
-                            countryController
-                                .displayCountry[index].nameOfficial,
-                            style: const TextStyle(fontSize: 10),
-                          ),
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(countryController
-                                .displayCountry[index].flagPng),
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                            "/detail",
+                            arguments: {
+                              'nameCommon': countryController
+                                  .displayCountry[index].nameCommon,
+                              'capital': countryController
+                                  .displayCountry[index].capital,
+                              'population': countryController
+                                  .displayCountry[index].population
+                                  .toString(),
+                              'area': countryController
+                                  .displayCountry[index].area
+                                  .toString(),
+                              'flagPng': countryController
+                                  .displayCountry[index].flagPng,
+                            },
+                          );
+                        },
+                        child: Card(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  countryController
+                                      .displayCountry[index].nameCommon,
+                                  style: const TextStyle(fontSize: 13),
+                                ),
+                                Text(
+                                  countryController
+                                      .displayCountry[index].continents,
+                                  style: const TextStyle(fontSize: 13),
+                                )
+                              ],
+                            ),
+                            subtitle: Text(
+                              countryController
+                                  .displayCountry[index].nameOfficial,
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(countryController
+                                  .displayCountry[index].flagPng),
+                            ),
                           ),
                         ),
                       );
