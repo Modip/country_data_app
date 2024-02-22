@@ -14,12 +14,12 @@ class CountryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         title: const Text(
           "Counry App",
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: kBackgroundColor),
         ),
       ),
       body: SingleChildScrollView(
@@ -35,8 +35,7 @@ class CountryScreen extends StatelessWidget {
               height: 60,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(
-                      width: 1.2, color: const Color.fromARGB(255, 17, 5, 45)),
+                  border: Border.all(width: 1.2, color: kPrimaryColor),
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: const [
                     BoxShadow(
@@ -47,10 +46,10 @@ class CountryScreen extends StatelessWidget {
                   ]),
               child: Center(
                 child: TextField(
-                  onChanged: (value) => countryController.updateCountry(value),
+                  onChanged: (value) => countryController.onTextChanged(value),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Find your ...",
+                    hintText: " Find your country",
                     hintStyle: TextStyle(
                       fontSize: 15,
                       color: Color.fromARGB(255, 17, 5, 45),
@@ -84,6 +83,9 @@ class CountryScreen extends StatelessWidget {
                           Get.toNamed(
                             "/detail",
                             arguments: {
+                              'subregion': countryController
+                                  .displayCountry[index].subregion
+                                  .toString(),
                               'nameCommon': countryController
                                   .displayCountry[index].nameCommon,
                               'capital': countryController
@@ -105,15 +107,18 @@ class CountryScreen extends StatelessWidget {
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  countryController
-                                      .displayCountry[index].nameCommon,
-                                  style: const TextStyle(fontSize: 13),
+                                Expanded(
+                                  child: Text(
+                                    countryController
+                                        .displayCountry[index].nameCommon,
+                                    style: const TextStyle(fontSize: 15),
+                                    maxLines: 1,
+                                  ),
                                 ),
                                 Text(
                                   countryController
                                       .displayCountry[index].continents,
-                                  style: const TextStyle(fontSize: 13),
+                                  style: const TextStyle(fontSize: 15),
                                 )
                               ],
                             ),

@@ -11,20 +11,19 @@ class DetailCountry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         title: const Text(
           "Country App",
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: kBackgroundColor),
         ),
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.grey),
+          icon: const Icon(Icons.arrow_back_ios_new, color: kBackgroundColor),
         ),
       ),
       body: Stack(
@@ -72,7 +71,7 @@ class DetailCountry extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: height * .04,
+                    height: height * .06,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,6 +101,22 @@ class DetailCountry extends StatelessWidget {
                       const Text("Area", style: TextStyle(fontSize: 18)),
                       Text(Get.arguments['area'],
                           style: const TextStyle(fontSize: 18)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * .04,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        child:
+                            Text("SubRegion", style: TextStyle(fontSize: 18)),
+                      ),
+                      Expanded(
+                        child: Text(Get.arguments['subregion'],
+                            style: const TextStyle(fontSize: 18)),
+                      ),
                     ],
                   ),
                   SizedBox(
